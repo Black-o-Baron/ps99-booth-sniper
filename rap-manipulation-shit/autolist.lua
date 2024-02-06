@@ -5,6 +5,6 @@ local args1 = {
     [3] = 1
 }
 for i = 1, 100000, 1 do
-    task.wait(1)
+    task.wait(5)
     ReplicatedStorage1.Network.Booths_CreateListing:InvokeServer(unpack(args1))
 end
