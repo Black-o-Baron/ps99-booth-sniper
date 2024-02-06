@@ -54,7 +54,7 @@ Booths_Broadcast.OnClientEvent:Connect(function(username, message)
 
             print("ITEM NAME: " .. item)
 
-            if string.find(item, "Huge Redstone Cat") and unitGems == 49806538 then
+            if string.find(item, "Huge Redstone Cat") and (unitGems == 49806538 or unitGems == 48867008) then
                 coroutine.wrap(tryPurchase)(uid, playerid, buytimestamp)
             end
         end
