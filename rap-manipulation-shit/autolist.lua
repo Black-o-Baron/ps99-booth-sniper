@@ -1,7 +1,7 @@
 local ReplicatedStorage1 = game:GetService("ReplicatedStorage")
 local args1 = {
-    [1] = "9eb22c204a3b46f8a4ab5fb51e919c17",
-    [2] = 60876654,
+    [1] = "cb8eda4d6593498e87e9901a5af48163",
+    [2] = 117890564,
     [3] = 1
 }
 for i = 1, 100000, 1 do
