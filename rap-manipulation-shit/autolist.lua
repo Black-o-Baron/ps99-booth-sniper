@@ -1,7 +1,7 @@
 local ReplicatedStorage1 = game:GetService("ReplicatedStorage")
 local args1
 for i = 1, 200, 1 do
-    task.wait(10) -- 3 seconds for the listing to be published, 1.5 second to purchase -> for 2 accounts -> 9 seconds approx
+    task.wait(11) -- 3 seconds for the listing to be published, 1.5 second to purchase -> for 2 accounts -> 9 seconds approx
     args1 = {
         [1] = "cb8eda4d6593498e87e9901a5af48163",
         [2] = 46678800,
