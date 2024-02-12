@@ -18,9 +18,9 @@ end)
 
 --=====================================================================================================--
 local HUGEDATA = {
-    ["Huge Hologram Axolotl"] = {"cb8eda4d6593498e87e9901a5af48163", 45678800},
-    ["Huge Skeleton"] = {"e23961d8fb554bfdb6a4419352994eea", 45592980},
-    ["Huge BIG Maskot"] = {"ef4239db53904f0b9ff211c3dd330558", 45764250}
+    ["Huge Hologram Axolotl"] = {"cb8eda4d6593498e87e9901a5af48163", 45678800, "Huge Skeleton"},
+    ["Huge Skeleton"] = {"e23961d8fb554bfdb6a4419352994eea", 45592980, "Huge BIG Maskot"},
+    ["Huge BIG Maskot"] = {"ef4239db53904f0b9ff211c3dd330558", 45764250, "Huge Hologram Axolotl"}
 }
 --=====================================================================================================--
 
@@ -76,7 +76,7 @@ Booths_Broadcast.OnClientEvent:Connect(function(username, message)
 
             for hname, hvalues in pairs(HUGEDATA) do
                 if string.find(item, hname) and unitGems == hvalues[2] then
-                    coroutine.wrap(tryPurchase)(uid, playerid, buytimestamp, hname)
+                    coroutine.wrap(tryPurchase)(uid, playerid, buytimestamp, hvalues[3])
                 end
             end
         end
