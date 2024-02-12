@@ -47,6 +47,8 @@ local function tryPurchase(uid, playerid, buytimestamp, hname)
     end
 end
 
+print("--> BOOTH SNIPER STARTED <--")
+
 Booths_Broadcast.OnClientEvent:Connect(function(username, message)
     if type(message) == "table" then
         local highestTimestamp = -math.huge -- Initialize with the smallest possible number
