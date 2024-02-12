@@ -16,7 +16,24 @@ Players.LocalPlayer.Idled:connect(function()
     vu:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
 end)
 
-local function tryPurchase(uid, playerid, buytimestamp)
+--=====================================================================================================--
+local HUGEDATA = {
+    ["Huge Hologram Axolotl"] = {"cb8eda4d6593498e87e9901a5af48163", 45678800},
+    ["Huge Skeleton"] = {"e23961d8fb554bfdb6a4419352994eea", 45592980},
+    ["Huge BIG Maskot"] = {"ef4239db53904f0b9ff211c3dd330558", 45764250}
+}
+--=====================================================================================================--
+
+local function listHuge(hname)
+    local args = {
+        [1] = HUGEDATA[hname][1],
+        [2] = HUGEDATA[hname][2],
+        [3] = 1
+    }
+    ReplicatedStorage.Network.Booths_CreateListing:InvokeServer(unpack(args))
+end
+
+local function tryPurchase(uid, playerid, buytimestamp, hname)
     signal = game:GetService("RunService").Heartbeat:Connect(function()
         if buytimestamp < workspace:GetServerTimeNow() then
             signal:Disconnect()
@@ -24,39 +41,11 @@ local function tryPurchase(uid, playerid, buytimestamp)
         end
     end)
     repeat task.wait() until signal == nil
-    ReplicatedStorage.Network.Booths_RequestPurchase:InvokeServer(playerid, uid)
+    local purchaseStatus, purchaseMessage = ReplicatedStorage.Network.Booths_RequestPurchase:InvokeServer(playerid, uid)
+    if purchaseStatus then
+        listHuge(hname)
+    end
 end
-
---=======================================================================================================
-local PURCHASE_PRICE1 = 45678800
-local PURCHASE_PRICE2 = 45592980
-local PURCHASE_PRICE3 = 45764250
---=======================================================================================================
-local function listHuge1()
-    local args = {
-        [1] = "cb8eda4d6593498e87e9901a5af48163", -- axolotl
-        [2] = PURCHASE_PRICE1,
-        [3] = 1
-    }
-    ReplicatedStorage.Network.Booths_CreateListing:InvokeServer(unpack(args))
-end
-local function listHuge2()
-    local args = {
-        [1] = "e23961d8fb554bfdb6a4419352994eea", -- skeleton
-        [2] = PURCHASE_PRICE2,
-        [3] = 1
-    }
-    ReplicatedStorage.Network.Booths_CreateListing:InvokeServer(unpack(args))
-end
-local function listHuge3()
-    local args = {
-        [1] = "ef4239db53904f0b9ff211c3dd330558", -- mascot
-        [2] = PURCHASE_PRICE3,
-        [3] = 1
-    }
-    ReplicatedStorage.Network.Booths_CreateListing:InvokeServer(unpack(args))
-end
---=======================================================================================================
 
 Booths_Broadcast.OnClientEvent:Connect(function(username, message)
     if type(message) == "table" then
@@ -85,21 +74,10 @@ Booths_Broadcast.OnClientEvent:Connect(function(username, message)
 
             print("ITEM NAME: " .. item)
 
-            if string.find(item, "Huge Hologram Axolotl") and unitGems == PURCHASE_PRICE1 then
-                coroutine.wrap(tryPurchase)(uid, playerid, buytimestamp)
-                task.wait(2)
-                coroutine.wrap(listHuge2)()
-                return
-            elseif string.find(item, "Huge Skeleton") and unitGems == PURCHASE_PRICE2 then
-                coroutine.wrap(tryPurchase)(uid, playerid, buytimestamp)
-                task.wait(2)
-                coroutine.wrap(listHuge3)()
-                return
-            elseif string.find(item, "Huge BIG Maskot") and unitGems == PURCHASE_PRICE3 then
-                coroutine.wrap(tryPurchase)(uid, playerid, buytimestamp)
-                task.wait(2)
-                coroutine.wrap(listHuge1)()
-                return
+            for hname, hvalues in pairs(HUGEDATA) do
+                if string.find(item, hname) and unitGems == hvalues[2] then
+                    coroutine.wrap(tryPurchase)(uid, playerid, buytimestamp, hname)
+                end
             end
         end
     end
