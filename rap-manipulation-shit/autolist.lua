@@ -1,6 +1,6 @@
 local ReplicatedStorage1 = game:GetService("ReplicatedStorage")
 local args1
-for i = 1, 450, 1 do
+for i = 1, 250, 1 do
     task.wait(1)
     args1 = {
         [1] = "cb8eda4d6593498e87e9901a5af48163",
