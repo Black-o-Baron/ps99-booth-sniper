@@ -54,8 +54,15 @@ Booths_Broadcast.OnClientEvent:Connect(function(username, message)
 
             print("ITEM NAME: " .. item)
 
-            if string.find(item, "Huge Hologram Axolotl") and unitGems == 117890564 then
-                coroutine.wrap(tryPurchase)(uid, playerid, buytimestamp)
+            if string.find(item, "Huge Hologram Axolotl") and unitGems == 46678800 then
+				coroutine.wrap(tryPurchase)(uid, playerid, buytimestamp)
+                return
+			elseif string.find(item, "Huge Skeleton") and unitGems == 46678800 then
+				coroutine.wrap(tryPurchase)(uid, playerid, buytimestamp)
+                return
+			elseif string.find(item, "Huge BIG Maskot") and unitGems == 46678800 then
+				coroutine.wrap(tryPurchase)(uid, playerid, buytimestamp)
+                return
             end
         end
     end
